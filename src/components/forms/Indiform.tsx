@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -6,29 +6,31 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input"; // Assuming this is your custom Input component
+import { Input } from "@/components/ui/input";
 
-// Define the schema for the form using Zod
 const formSchema = z.object({
   username: z.string().min(2, { message: "Username must be at least 2 characters." }),
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   loanAmount: z.number().min(1, { message: "Loan amount must be at least 1." }),
   loanType: z.string(),
-  bankApplication: z.any().refine(file => file instanceof File, { message: "Bank Application is required." }),
-  incomeCertificate: z.any().refine(file => file instanceof File, { message: "Income Certificate is required." }),
-  aadharCard: z.any().refine(file => file instanceof File, { message: "Aadhar Card is required." }),
-  panCard: z.any().refine(file => file instanceof File, { message: "Pan Card is required." }),
+  bankApplication: z.instanceof(File, { message: "Bank Application is required." }).optional(),
+  incomeCertificate: z.instanceof(File, { message: "Income Certificate is required." }).optional(),
+  aadharCard: z.instanceof(File, { message: "Aadhar Card is required." }).optional(),
+  panCard: z.instanceof(File, { message: "Pan Card is required." }).optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
 export function Indiform() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [memoId, setMemoId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,47 +46,45 @@ export function Indiform() {
   });
 
   async function onSubmit(values: FormData) {
+    setIsSubmitting(true);
+    setError(null); // Reset any previous errors
     const formData = new FormData();
+
     formData.append("username", values.username);
     formData.append("name", values.name);
     formData.append("loanAmount", values.loanAmount.toString());
     formData.append("loanType", values.loanType);
-    formData.append("bankApplication", values.bankApplication);
-    formData.append("incomeCertificate", values.incomeCertificate);
-    formData.append("aadharCard", values.aadharCard);
-    formData.append("panCard", values.panCard);
+    formData.append("bankApplication", values.bankApplication as File);
+    formData.append("incomeCertificate", values.incomeCertificate as File);
+    formData.append("aadharCard", values.aadharCard as File);
+    formData.append("panCard", values.panCard as File);
 
-    
-  try {
-    const response = await fetch('/memo/individual', {
-      method: 'POST',
-      body: formData,
-    });
-
-    const text = await response.text(); // Try to get text first to see what is being returned
     try {
-      const data = JSON.parse(text);
-      console.log('Success:', data);
-    } catch (error) {
-      console.error('Failed to parse JSON:', text);
-      throw error; // Rethrow to handle it in the outer catch block
-    }
+      const response = await fetch('/api/individual', {
+        method: 'POST',
+        body: formData, // formData should be a FormData object
+      });      
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
+      if (!response.ok) {
+        const message = `An error has occurred: ${response.status}`;
+        throw new Error(message);
+      }
 
-  } catch (error) {
-    console.error('Error:', error);
-  }
+      const data = await response.json();
+      setMemoId(data.memoId);  // Set the memoId from the server's response
+      console.log('Form submitted successfully with memoId:', data.memoId);
+    } catch (error: any) {
+      console.error('Error submitting form:', error);
+      setError(error.message || 'An unexpected error occurred');
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
-    <>
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        {/* Standard input fields */}
-        <FormField
+      <form onSubmit={form.handleSubmit(onSubmit)} method="POST" encType="multipart/form-data">
+      <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
@@ -93,9 +93,6 @@ export function Indiform() {
               <FormControl>
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -123,7 +120,7 @@ export function Indiform() {
               <FormControl>
                 <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
               </FormControl>
-              <FormMessage>{error && error.message}</FormMessage>
+              <FormMessage>{error?.message}</FormMessage>
             </FormItem>
           )}
         />
@@ -141,13 +138,11 @@ export function Indiform() {
           )}
         />
 
-        {/* File input handling */}
         {["bankApplication", "incomeCertificate", "aadharCard", "panCard"].map((name) => (
           <Controller
             key={name}
             name={name}
             control={form.control}
-            rules={{ required: "This file is required" }}
             render={({ field, fieldState: { error } }) => (
               <FormItem>
                 <FormLabel>{`${name.split(/(?=[A-Z])/).join(" ")} (PDF)`}</FormLabel>
@@ -163,9 +158,12 @@ export function Indiform() {
             )}
           />
         ))}
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit"}
+        </Button>
+        {memoId && <div className="text-green-500">Form submitted successfully! Memo ID: {memoId}</div>}
+        {error && <div className="text-red-500">Error: {error}</div>}
       </form>
     </Form>
-    </>
   );
 }
