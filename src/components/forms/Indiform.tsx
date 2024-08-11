@@ -141,7 +141,7 @@ export function Indiform() {
         {["bankApplication", "incomeCertificate", "aadharCard", "panCard"].map((name) => (
           <Controller
             key={name}
-            name={name}
+            name={name as "bankApplication" | "incomeCertificate" | "aadharCard" | "panCard"}
             control={form.control}
             render={({ field, fieldState: { error } }) => (
               <FormItem>
