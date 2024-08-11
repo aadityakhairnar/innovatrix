@@ -2,13 +2,6 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 
-// Disable the automatic body parsing to handle it manually
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 // Helper function to generate a simplified memoId
 function generateMemoId() {
   const randomNum = Math.floor(100 + Math.random() * 900); // Random 3-digit number
@@ -18,6 +11,12 @@ function generateMemoId() {
 
 export async function POST(request: Request) {
   try {
+    // Manually handle the body parsing
+    const contentType = request.headers.get('content-type') || '';
+    if (!contentType.includes('multipart/form-data')) {
+      return NextResponse.json({ message: 'Invalid content type' }, { status: 400 });
+    }
+
     const formData = await request.formData();
     
     // Generate a simplified memoId
