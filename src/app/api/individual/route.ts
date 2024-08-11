@@ -62,6 +62,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: 'Form data and files uploaded successfully', memoId, savedFiles });
   } catch (error) {
     console.error('Error during form submission:', error);
-    return NextResponse.json({ message: 'Error during form submission', error: error.message }, { status: 500 });
+    return NextResponse.json({ message: 'Error during form submission', error: (error as Error).message }, { status: 500 });
   }
 }
