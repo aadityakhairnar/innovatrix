@@ -13,10 +13,17 @@ export default function Page() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch('/MemoData.csv');
+      const response = await fetch("/MemoData.csv");
+
+      // Check if response.body is null
+      if (!response.body) {
+        console.error("Response body is null");
+        return;
+      }
+
       const reader = response.body.getReader();
       const result = await reader.read(); // raw array buffer
-      const decoder = new TextDecoder('utf-8');
+      const decoder = new TextDecoder("utf-8");
       const csv = decoder.decode(result.value);
       const parsedData = Papa.parse(csv, { header: true }).data;
       console.log(parsedData);
