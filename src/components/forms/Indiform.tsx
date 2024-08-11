@@ -38,10 +38,10 @@ export function Indiform() {
       name: "",
       loanAmount: 1,
       loanType: "",
-      bankApplication: null,
-      incomeCertificate: null,
-      aadharCard: null,
-      panCard: null,
+      bankApplication: undefined,
+      incomeCertificate: undefined,
+      aadharCard: undefined,
+      panCard: undefined,
     },
   });
 
