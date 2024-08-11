@@ -40,6 +40,11 @@ export default function Page() {
                 <div className="border m-4 p-8">
                     <Indiform/>
                 </div>
+                <Button>
+                    <Link href="\memo\individual\generatedMemo">
+                    skip
+                    </Link>
+                </Button>
             </div>
         </div>
     </>

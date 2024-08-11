@@ -45,13 +45,13 @@ export function Approvchart() {
         <CardTitle>Approval Rate</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="h-[13vh] w-full">
           <BarChart
             accessibilityLayer
             data={chartData}
             layout="vertical"
             margin={{
-              left: 0,
+              left: 15,
             }}
             barSize={10}
           >

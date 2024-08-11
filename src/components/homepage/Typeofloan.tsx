@@ -56,10 +56,10 @@ export function Typeofloan() {
     <Card>
       <CardHeader>
         <CardTitle>Types of Individual loans processed</CardTitle>
-        <CardDescription></CardDescription>
+
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
+      <CardContent className="p-2">
+        <ChartContainer config={chartConfig}  className="h-[34vh] w-full">
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
@@ -95,9 +95,6 @@ export function Typeofloan() {
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        
-      </CardFooter>
     </Card>
   )
 }

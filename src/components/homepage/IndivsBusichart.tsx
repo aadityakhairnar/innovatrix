@@ -34,14 +34,14 @@ export function IndivsBusichart() {
   const totalVisitors = chartData[0].individual + chartData[0].business
 
   return (
-    <Card className="flex flex-col gap-1 justify-between">
+    <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
         <CardTitle>No. Of Loans Processed</CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-1 items-center pb-0">
+      <CardContent className="items-center pb-0 h-[20vh]">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square w-full max-w-[250px]"
+          className=""
         >
           <RadialBarChart
             data={chartData}
