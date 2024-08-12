@@ -1,51 +1,51 @@
-Memo Id,Name,Loan Type,Amount,Date Created,Status,Category
-1,Bob Johnson,Personal,46758,2023-01-01,Pending,business
-2,Alice Williams,Business,7873,2023-01-02,Approved,business
-3,John Doe,Personal,6675,2023-01-03,Declined,business
-4,Bob Johnson,Business,1161,2023-01-04,Pending,business
-5,Bob Johnson,Personal,38065,2023-01-05,Declined,business
-6,Alice Williams,Business,27557,2023-01-06,Declined,business
-7,John Doe,Business,34763,2023-01-07,Approved,business
-8,John Doe,Personal,33606,2023-01-08,Declined,business
-9,Bob Johnson,Personal,12534,2023-01-09,Approved,individual
-10,Jane Smith,Personal,30127,2023-01-10,Declined,business
-11,Bob Johnson,Personal,41397,2023-01-11,Pending,business
-12,Bob Johnson,Personal,26851,2023-01-12,Declined,individual
-13,Bob Johnson,Personal,2016,2023-01-13,Approved,business
-14,Bob Johnson,Personal,25253,2023-01-14,Approved,individual
-15,Alice Williams,Personal,25276,2023-01-15,Pending,individual
-16,John Doe,Business,24247,2023-01-16,Declined,business
-17,Alice Williams,Business,25300,2023-01-17,Declined,individual
-18,Alice Williams,Personal,9529,2023-01-18,Pending,individual
-19,Alice Williams,Business,18262,2023-01-19,Declined,individual
-20,Bob Johnson,Business,10268,2023-01-20,Declined,individual
-21,Jane Smith,Business,22271,2023-01-21,Approved,business
-22,John Doe,Business,13185,2023-01-22,Declined,individual
-23,Jane Smith,Personal,22243,2023-01-23,Declined,business
-24,Alice Williams,Business,40099,2023-01-24,Pending,individual
-25,Alice Williams,Personal,9571,2023-01-25,Pending,individual
-26,Jane Smith,Business,40976,2023-01-26,Approved,individual
-27,Jane Smith,Business,39044,2023-01-27,Declined,individual
-28,Jane Smith,Business,49984,2023-01-28,Declined,business
-29,Alice Williams,Personal,41774,2023-01-29,Declined,business
-30,Alice Williams,Business,3568,2023-01-30,Approved,individual
-31,John Doe,Personal,3027,2023-01-31,Approved,individual
-32,John Doe,Business,3695,2023-02-01,Pending,business
-33,Alice Williams,Personal,49190,2023-02-02,Approved,individual
-34,Jane Smith,Business,6258,2023-02-03,Declined,individual
-35,Jane Smith,Personal,23002,2023-02-04,Declined,individual
-36,John Doe,Personal,40504,2023-02-05,Approved,business
-37,Alice Williams,Business,34159,2023-02-06,Declined,business
-38,John Doe,Personal,14986,2023-02-07,Declined,business
-39,John Doe,Business,13666,2023-02-08,Approved,individual
-40,Bob Johnson,Business,39660,2023-02-09,Approved,individual
-41,Bob Johnson,Business,4561,2023-02-10,Declined,business
-42,Bob Johnson,Business,27854,2023-02-11,Declined,business
-43,Jane Smith,Business,39952,2023-02-12,Declined,business
-44,Alice Williams,Business,23662,2023-02-13,Pending,business
-45,Alice Williams,Business,9392,2023-02-14,Pending,individual
-46,Alice Williams,Business,31535,2023-02-15,Pending,business
-47,Alice Williams,Business,14067,2023-02-16,Approved,individual
-48,Bob Johnson,Business,49033,2023-02-17,Pending,business
-49,Jane Smith,Business,24599,2023-02-18,Approved,individual
-50,Jane Smith,Personal,36222,2023-02-19,Approved,business
+MemoId,Name,Loan Type,Date Created,Status,Category,Amount
+1,Alice Williams,Education Loan,2023-01-01,Rejected,individual,15574
+2,Lily Evans,Personal Loan,2023-01-02,Approved,individual,35086
+3,James Taylor,Personal Loan,2023-01-03,Approved,individual,95429
+4,Wave Surfer Apparel,Term Loan,2023-01-04,Approved,business,62549
+5,Emma Wilson,Education Loan,2023-01-05,Approved,individual,32508
+6,Diamond Cut Jewelers,Overdraft,2023-01-06,Rejected,business,93685
+7,Benjamin Clark,Car Loan,2023-01-07,Approved,individual,94091
+8,Smart Homes,Commercial Real Estate Loan,2023-01-08,Approved,business,32130
+9,Michael King,Home Loan,2023-01-09,Approved,individual,46764
+10,Budget Builders,Invoice Financing,2023-01-10,Approved,business,76952
+11,Jack Hill,Home Loan,2023-01-11,Approved,individual,93508
+12,ABC Logistics,Overdraft,2023-01-12,Approved,business,5278
+13,Moonlight Cinema,Invoice Financing,2023-01-14,Approved,business,28198
+14,Sophia Martin,Vacation Loan,2023-01-15,Rejected,individual,20658
+15,Fast Foods Inc,Term Loan,2023-01-17,Approved,business,16939
+16,John Doe,Personal Loan,2023-01-18,Rejected,individual,76632
+17,Tom Harris,Car Loan,2023-01-19,Approved,individual,7220
+18,Golden Gate Realty,Cash Credit,2023-01-20,Approved,business,73081
+19,Health Plus,Equipment Financing,2023-01-21,Rejected,business,51949
+20,Isabella Hall,Home Loan,2023-01-22,Rejected,individual,24604
+21,River Bank Finance,Invoice Financing,2023-01-26,Approved,business,64613
+22,Urban Utilities,Invoice Financing,2023-01-27,Rejected,business,51385
+23,Mia Scott,Home Loan,2023-01-29,Approved,individual,24295
+24,Sara White,Education Loan,2023-01-30,Approved,individual,58939
+25,Eco Textiles,Invoice Financing,2023-01-31,Approved,business,54696
+26,Quality Apparel,Cash Credit,2023-02-01,Rejected,business,13134
+27,Elite Motors,Overdraft,2023-02-04,Approved,business,85392
+28,123 Retailers,Invoice Financing,2023-02-08,Approved,business,23163
+29,Mega Media,Equipment Financing,2023-02-10,Approved,business,85922
+30,Nathan Wright,Personal Loan,2023-02-12,Approved,individual,47585
+31,Olivia Turner,Medical Loan,2023-02-14,Rejected,individual,20390
+32,Lucy Brown,Home Loan,2023-02-17,Approved,individual,38473
+33,Sunrise Beverages,Invoice Financing,2023-02-20,Approved,business,76506
+34,Chloe Adams,Home Loan,2023-02-20,Approved,individual,71688
+35,Starlight Hotels,Invoice Financing,2023-02-20,Rejected,business,86595
+36,Omar Khan,Vacation Loan,2023-02-20,Rejected,individual,57334
+37,Secure IT,Invoice Financing,2023-02-20,Approved,business,99449
+38,Bob Johnson,Car Loan,2023-02-20,Rejected,individual,37747
+39,Charlie Green,Medical Loan,2023-02-20,Approved,individual,94046
+40,Platinum Investments,Term Loan,2023-02-20,Rejected,business,96235
+41,Ryan Baker,Vacation Loan,2023-02-20,Rejected,individual,98543
+42,Madison Moore,Personal Loan,2023-02-20,Approved,individual,32568
+43,Tech Solutions,Cash Credit,2023-02-20,Rejected,business,80959
+44,Daniel Young,Home Loan,2023-02-20,Approved,individual,42568
+45,Green Energy,Equipment Financing,2023-02-20,Approved,business,42760
+46,Nova Software,Term Loan,2023-02-20,Rejected,business,16269
+47,Emily Lee,Personal Loan,2023-02-20,Approved,individual,70462
+48,XYZ Manufacturing,Invoice Financing,2023-02-20,Approved,business,70669
+49,Jane Smith,Vacation Loan,2023-02-20,Approved,individual,83693
+50,Widget Corp,Term Loan,2023-02-20,Approved,business,94178

@@ -3,34 +3,13 @@ import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import Papa from "papaparse";
-import { useEffect, useState } from 'react';
+
 import Link from "next/link";
+import Memotable from "@/components/Memotable";
+
 
 export default function Page() {
-  const [data, setData] = useState<Array<any>>([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch("/MemoData.csv");
-
-      // Check if response.body is null
-      if (!response.body) {
-        console.error("Response body is null");
-        return;
-      }
-
-      const reader = response.body.getReader();
-      const result = await reader.read(); // raw array buffer
-      const decoder = new TextDecoder("utf-8");
-      const csv = decoder.decode(result.value);
-      const parsedData = Papa.parse(csv, { header: true }).data;
-      console.log(parsedData);
-      setData(parsedData);
-    }
-    fetchData();
-  }, []);
+  
 
   return (
     <>
@@ -73,33 +52,7 @@ export default function Page() {
             </Card>
           </div>
         </div>
-        <div className="border rounded-xl mx-20">
-          <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">Memo Id</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Loan Type</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-                <TableHead className="text-right">Date Created</TableHead>
-                <TableHead className="text-right">Status</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell className="font-medium">{item["Memo Id"]}</TableCell>
-                  <TableCell>{item.Name}</TableCell>
-                  <TableCell>{item["Loan Type"]}</TableCell>
-                  <TableCell className="text-right">{item.Amount}</TableCell>
-                  <TableCell className="text-right">{item["Date Created"]}</TableCell>
-                  <TableCell className="text-right">{item.Status}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <Memotable/>
       </div>
     </>
   );
