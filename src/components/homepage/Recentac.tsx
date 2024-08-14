@@ -23,7 +23,7 @@ const Recentac = () => {
         header: true,
         skipEmptyLines: true,
         complete: (results : any) => {
-            const limitedData = results.data.slice(-7);
+            const limitedData = results.data.slice(-6);
             setData(limitedData);
         },
       });

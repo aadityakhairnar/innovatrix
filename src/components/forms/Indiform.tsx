@@ -10,14 +10,28 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 
 const formSchema = z.object({
-  username: z.string().min(2, { message: "Username must be at least 2 characters." }),
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  applicantName: z.string().min(2, { message: "Applicant Name must be at least 2 characters." }),
+  applicantAge: z.string().min(2, { message: "Applicant Age must be at least 2 characters." }),
+  education: z.string().min(2, { message: "Education must be at least 2 characters." }),
+  annualAmount: z.number().min(1, { message: "Loan amount must be at least 1." }),
   loanAmount: z.number().min(1, { message: "Loan amount must be at least 1." }),
+  loanPurpose: z.string().min(2, { message: "Loan Purpose must be at least 2 characters." }),
   loanType: z.string(),
+  loanTerm: z.number().min(1, { message: "Loan Term must be at least 1." }),
+  cibilScore: z.number().min(1, { message: "Cibil Score must be at least 1." }),
   bankApplication: z.instanceof(File, { message: "Bank Application is required." }).optional(),
   incomeCertificate: z.instanceof(File, { message: "Income Certificate is required." }).optional(),
   aadharCard: z.instanceof(File, { message: "Aadhar Card is required." }).optional(),
@@ -34,10 +48,15 @@ export function Indiform() {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      name: "",
+      applicantName: "",
+      applicantAge: "",
+      education: "",
+      annualAmount: 1,
       loanAmount: 1,
+      loanPurpose: "",
       loanType: "",
+      loanTerm: 1,
+      cibilScore: 1,
       bankApplication: undefined,
       incomeCertificate: undefined,
       aadharCard: undefined,
@@ -50,10 +69,15 @@ export function Indiform() {
     setError(null); // Reset any previous errors
     const formData = new FormData();
 
-    formData.append("username", values.username);
-    formData.append("name", values.name);
+    formData.append("applicantName", values.applicantName);
+    formData.append("applicantAge", values.applicantAge);
+    formData.append("education", values.education);
+    formData.append("annualAmount", values.annualAmount.toString());
     formData.append("loanAmount", values.loanAmount.toString());
+    formData.append("loanPurpose", values.loanPurpose);
     formData.append("loanType", values.loanType);
+    formData.append("loanTerm", values.loanTerm.toString());
+    formData.append("cibilScore", values.cibilScore.toString());
     formData.append("bankApplication", values.bankApplication as File);
     formData.append("incomeCertificate", values.incomeCertificate as File);
     formData.append("aadharCard", values.aadharCard as File);
@@ -86,10 +110,10 @@ export function Indiform() {
       <form onSubmit={form.handleSubmit(onSubmit)} method="POST" encType="multipart/form-data">
       <FormField
           control={form.control}
-          name="username"
+          name="applicantName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Applicant Name</FormLabel>
               <FormControl>
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
@@ -100,13 +124,40 @@ export function Indiform() {
 
         <FormField
           control={form.control}
-          name="name"
+          name="applicantAge"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Applicant Age</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="education"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Education</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="annualAmount"
+          render={({ field, fieldState: { error } }) => (
+            <FormItem>
+              <FormLabel>Annual Amount</FormLabel>
+              <FormControl>
+                <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+              </FormControl>
+              <FormMessage>{error?.message}</FormMessage>
             </FormItem>
           )}
         />
@@ -127,13 +178,66 @@ export function Indiform() {
 
         <FormField
           control={form.control}
-          name="loanType"
+          name="loanPurpose"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Loan Type</FormLabel>
+              <FormLabel>Loan Purpose</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
+            </FormItem>
+          )}
+        />
+
+          <FormField
+          control={form.control}
+          name="loanType"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>LoanType</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a verified email to display" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="Personal Loan">Personal Loan</SelectItem>
+                  <SelectItem value="Home Loan">Home Loan</SelectItem>
+                  <SelectItem value="Car Loan">Car Loan</SelectItem>
+                  <SelectItem value="Education Loan">Education Loan</SelectItem>
+                  <SelectItem value="Mortgage Loan">Mortgage Loan</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="loanTerm"
+          render={({ field, fieldState: { error } }) => (
+            <FormItem>
+              <FormLabel>Loan Term</FormLabel>
+              <FormControl>
+                <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+              </FormControl>
+              <FormMessage>{error?.message}</FormMessage>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="cibilScore"
+          render={({ field, fieldState: { error } }) => (
+            <FormItem>
+              <FormLabel>Cibil Score</FormLabel>
+              <FormControl>
+                <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+              </FormControl>
+              <FormMessage>{error?.message}</FormMessage>
             </FormItem>
           )}
         />

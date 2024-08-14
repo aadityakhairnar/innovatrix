@@ -74,13 +74,15 @@ const Memotable = () => {
   };
 
   return (
-    <div className="border rounded-xl mx-20">
+    <div className=" mx-20">
       <Tabs defaultValue="individual" className="w-full" onValueChange={(value) => setActiveTab(value)}>
-        <TabsList>
-          <TabsTrigger value="individual">Individual</TabsTrigger>
-          <TabsTrigger value="business">Business</TabsTrigger>
+        <TabsList className="inline-flex h-10 items-center justify-center rounded-md bg-primary p-1 text-muted-foreground">
+          <TabsTrigger value="individual" className="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+            Individual
+          </TabsTrigger>
+          <TabsTrigger value="business" className="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-primary transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">Business</TabsTrigger>
         </TabsList>
-        <TabsContent value="individual">
+        <TabsContent value="individual" className="border rounded-xl">
           <Table>
             <TableCaption>List of Individual Memos</TableCaption>
             <TableHeader>
