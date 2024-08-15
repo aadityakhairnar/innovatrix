@@ -18,6 +18,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import { Button } from "@/components/ui/button";
+import CIBILChart from "@/components/homepage/CIBILChart";
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
   { month: "February", desktop: 305, mobile: 200 },
@@ -68,35 +69,33 @@ export default function Page() {
                     </Breadcrumb>
                     </div>
                 <div className="mx-20 my-5 flex flex-col justify-between items-center">
-                    <p className="text-4xl font-semibold">Innovatech Solutions Ltd.</p>
+                    <p className="text-4xl font-semibold">John Doe</p>
                     <p>Individual</p>
                 </div>
                 <div className="grid grid-cols-8 grid-rows-7 h-[75vh] gap-2">
-                    <Card className="col-span-7 row-span-2">
-                        <CardContent className="p-4">
-                            Innovatech Solutions Ltd. is a leading software development firm specializing in bespoke enterprise software solutions. Founded in 2010, the company has steadily grown to become a notable player in the tech industry, servicing a diverse clientele across multiple sectors.
-                        </CardContent>
-                        <CardFooter className="flex justify-between p-4">
+                    <Card className="col-span-7 row-span-1">
+                        <CardContent className="p-4 flex flex-row justify-around items-center h-full">
                             <p>Loan Amount - $500000</p>
                             <p>Purpose - Expansion</p>
-                        </CardFooter>
+                            <p>Loan Term - 5 Years</p>
+                        </CardContent>
                     </Card>
                     <Card className="col-span-1 row-span-2">
-                        <CardContent className="p-4 text-2xl font-semibold text-center">
+                        <CardContent className="p-4 pb-2 text-2xl font-semibold text-center">
                             Profile Score
                         </CardContent>
-                        <CardContent className="text-5xl font-semibold text-center">
+                        <CardContent className="text-5xl font-semibold text-center pb-4">
                             7.82
                         </CardContent>
                     </Card>
-                    <Card id="historicalanalysis" className="col-span-3 row-span-5">
+                    <Card id="historicalanalysis" className="col-span-7 row-span-3">
                         <CardHeader className="p-4 pb-1">
                             <CardTitle>Historical Analysis</CardTitle>
                         </CardHeader>
-                        <CardContent className="p-2 flex flex-col justify-between h-[85%]">
+                        <CardContent className="p-2 flex flex-col justify-between">
                         <Card>
                             <CardHeader className=" text-base p-2">
-                                <CardTitle className="text-base">Revenue</CardTitle>
+                                <CardTitle className="text-base">Income </CardTitle>
                             </CardHeader>
                             <CardContent className="w-110 p-2">
                                 <ChartContainer config={chartConfig} className=" h-[13vh] w-full ">
@@ -136,67 +135,6 @@ export default function Page() {
                                 </ChartContainer>
                             </CardContent>
                         </Card>
-                        <Card>
-                                <CardHeader className=" text-base p-2">
-                                    <CardTitle className=" text-base">Line Chart - Dots</CardTitle>
-                                </CardHeader>
-                                <CardContent className="p-2">
-                                    <ChartContainer config={chartConfig} className=" h-[13vh] w-full ">
-                                    <LineChart
-                                        width={undefined}
-                                        height={undefined}
-                                        accessibilityLayer
-                                        data={chartData}
-                                        margin={{
-                                        left: 12,
-                                        right: 12,
-                                        }}
-                                    >
-                                        <CartesianGrid vertical={false} />
-                                        <XAxis
-                                        dataKey="month"
-                                        tickLine={false}
-                                        axisLine={false}
-                                        tickMargin={8}
-                                        tickFormatter={(value) => value.slice(0, 3)}
-                                        />
-                                        <ChartTooltip
-                                        cursor={false}
-                                        content={<ChartTooltipContent hideLabel />}
-                                        />
-                                        <Line
-                                        dataKey="desktop"
-                                        type="natural"
-                                        stroke="var(--color-desktop)"
-                                        strokeWidth={2}
-                                        dot={{
-                                            fill: "var(--color-desktop)",
-                                        }}
-                                        activeDot={{
-                                            r: 6,
-                                        }}
-                                        />
-                                    </LineChart>
-                                    </ChartContainer>
-                                </CardContent>
-                        </Card>
-                        
-                        </CardContent>
-                    </Card>
-                    <Card id="externalriskfactors"  className="col-span-5 row-span-3">
-                        <CardHeader>
-                            <CardTitle>External risk Analysis</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p>Card Content</p>
-                        </CardContent>
-                    </Card>
-                    <Card id="sectoranalysis" className="col-span-4 row-span-2">
-                        <CardHeader className="pb-4">
-                            <CardTitle>Sector Analysis</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p>The software development sector is projected to grow at an annual rate of 10% over the next five years. Innovatech faces stiff competition but stands out due to its innovative approach and diverse service offerings.</p>
                         </CardContent>
                     </Card>
                     <Card id="executive summary" className="col-span-1 row-span-2">
@@ -206,7 +144,44 @@ export default function Page() {
                                 Download
                             </Button>
                         </CardContent>
-                    </Card>             
+                    </Card> 
+                    <Card id="externalriskfactors"  className="col-span-2 row-span-2">
+                        <CardHeader className="p-2">
+                            <CardTitle>Cibil Score</CardTitle>
+                        </CardHeader>
+                        <CardContent className="h-[70%] p-2">
+                            <CIBILChart cibilScore={749}/>
+                        </CardContent>
+                    </Card>
+                    <Card id="sectoranalysis" className="col-span-2 row-span-2">
+                        <CardHeader className="pb-4">
+                            <CardTitle>Employment Details</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p>Employer Name: Acme Corp.</p>
+                            <p>Position: Senior Analyst</p>
+                            <p>Employment Duration: 3 years</p>
+                        </CardContent>
+                    </Card>
+                    <Card id="sectoranalysis" className="col-span-2 row-span-2">
+                        <CardHeader className="pb-4">
+                            <CardTitle>Verified Income Sources</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p>Primary Income: $70,000/year</p>
+                            <p>Secondary Income: $5,000/year (Freelance)</p>
+                        </CardContent>
+                    </Card>
+                    <Card id="sectoranalysis" className="col-span-2 row-span-2">
+                        <CardHeader className="pb-4">
+                            <CardTitle>Risk Analysis - Low</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p>Influential risk factors</p>
+                            <p>high economic sensitivity</p>
+                            <p>fluctuating income</p>
+                        </CardContent>
+                    </Card>           
                 </div>
               </div>
           </div>

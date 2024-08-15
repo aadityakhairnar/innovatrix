@@ -1,0 +1,21 @@
+{
+  "applicantName": "Vedant",
+  "applicantAge": "21",
+  "education": "Engineering",
+  "annualAmount": "3600000",
+  "loanAmount": "100000000",
+  "loanPurpose": "Timepass",
+  "loanType": "Education Loan",
+  "loanTerm": "12",
+  "cibilScore": "748",
+  "bankApplication": "https://loanapplications.blob.core.windows.net/inputpdfs/0DG974/d.docs.live.net.pdf",
+  "aadharCard": "undefined",
+  "panCard": "undefined",
+  "incomeCertificate": "https://loanapplications.blob.core.windows.net/inputpdfs/0DG974/WhatsApp%20Image%202024-08-05%20at%201.14.33%20PM%20(1).pdf",
+  "memoId": "0DG974",
+  "geminiResponses": [
+    "This looks like a well-formatted loan application form!  It includes all the necessary personal, identification, employment, and loan details.  \n\nHere are a few things to keep in mind:\n\n* **Accuracy:** Ensure all the information provided is accurate and up-to-date.\n* **Clarity:**  Make sure the information is easy to read and understand. \n* **Supporting Documents:** Be prepared to provide supporting documents as requested by the lender (e.g., proof of income, address, identification).\n* **Review:**  Before submitting the form, carefully review all the details to avoid any errors.\n\nIt's always a good idea to contact the lender directly if you have any questions or need further clarification about the application process. Good luck with your loan application! \n",
+    "This looks like a financial information document for a loan application. Here's a breakdown of the information provided:\n\n**Financial Information:**\n\n* **Existing Loans:**\n    * **Personal Loan:** INR 2,00,000 remaining balance - This means the applicant still owes INR 200,000 on a personal loan.\n    * **Car Loan:** INR 1,50,000 remaining balance - This means the applicant still owes INR 150,000 on a car loan.\n* **Monthly EMI Obligations:** INR 15,000 - This indicates the applicant is currently paying INR 15,000 every month towards their existing loan EMIs (Equated Monthly Installments).\n\n**Income Documentation:**\n\n* **Recent Salary Slips:**  Attached -  This indicates the applicant has provided their recent pay stubs as proof of their income.\n* **Bank Statements (last 6 months):** Attached - The applicant has provided their bank statements for the past 6 months. This helps verify their income and spending patterns.\n* **Income Tax Returns (last 2 years):** Attached - The applicant has provided their income tax returns for the past two years. This is crucial to show their official income declaration.\n\n**Declaration:**\n\n* **John Doe** declares that the information provided is truthful and accurate to the best of their knowledge. They also authorize the bank to investigate the information provided if necessary.\n\n**Overall:**\n\nThis document provides essential financial information for a loan application. It demonstrates the applicant's existing financial obligations, income, and spending patterns. It's a standard document required by financial institutions to assess an applicant's creditworthiness and lending risk.\n\n**Important Points:**\n\n* **Currency:**  INR likely refers to Indian Rupees.\n* **Purpose of the Document:** This document is part of a loan application process. The applicant is likely requesting additional financing.\n* **Verification:** The bank will likely review the documents provided and may conduct additional checks to verify the information. \n\nLet me know if you need more clarification or have other questions! \n"
+  ]
+}
+https://loanapplications.blob.core.windows.net/inputpdfs/0DG974/data.json
