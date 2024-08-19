@@ -39,15 +39,15 @@ const chartConfig = {
   },
   Mortgage_Loan: {
     label: "Mortgage Loan",
-    color: "hsl(var(--chart-3))",
+    color: "hsl(var(--chart-1))",
   },
   Car_Loan: {
     label: "Car Loan",
-    color: "hsl(var(--chart-4))",
+    color: "hsl(var(--chart-2))",
   },
   Education_Loan: {
     label: "Education Loan",
-    color: "hsl(var(--chart-5))",
+    color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig
 
@@ -79,15 +79,16 @@ export function Typeofloan() {
               dataKey="Applications"
               strokeWidth={2}
               radius={8}
-              activeIndex={2}
+
               activeBar={({ ...props }) => {
                 return (
                   <Rectangle
                     {...props}
-                    fillOpacity={0.8}
-                    stroke={props.payload.fill}
+                    opacity={40}
+                    stroke={"#000000"}
                     strokeDasharray={4}
                     strokeDashoffset={4}
+                    
                   />
                 )
               }}

@@ -33,18 +33,11 @@ export default function Page() {
                     </BreadcrumbList>
                 </Breadcrumb>
                 </div>
-                <div className="mx-20 my-5 flex flex-col justify-between items-center">
+                <div className="mx-20 mb-2 flex flex-col justify-between items-center">
                 <p className="text-4xl font-semibold">Loan Application</p>
                 <p>Individual</p>
                 </div>
-                <div className="border m-4 p-8">
                     <Indiform/>
-                </div>
-                <Button>
-                    <Link href="\memo\individual\generatedMemo">
-                    skip
-                    </Link>
-                </Button>
             </div>
         </div>
     </>

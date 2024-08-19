@@ -12,7 +12,7 @@ function generateMemoId() {
 }
 
 // Function to process text with Google Gemini (Generative AI)
-async function processTextWithGemini(text: string): Promise<string> {
+async function processTextWithGemini(formData: { [key: string]: any }, text: string): Promise<string> {
   const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
   
   if (!apiKey) {
@@ -20,11 +20,72 @@ async function processTextWithGemini(text: string): Promise<string> {
   }
 
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+    // Set the `responseMimeType` to output JSON
+    generationConfig: { responseMimeType: "application/json" }
+  });
+  const memoData = formData;
+  // Fixed custom prompt
+  const customPrompt = `Act as a senior loan underwriter with over 20 years of experience in/ evaluating personal loan applications.
+        Your task is to analyze the provided applicant data and generate a detailed credit memo.
+        The analysis should cover the applicant's background, financial stability, loan feasibility, and overall creditworthiness.
+        Your final recommendation should include a justification based on the data provided.
 
-  console.log('Sending text to Gemini API:', text);
+        Objective:
 
-  const result = await model.generateContent([text]);
+        Analyze the following details provided by the applicant:
+
+        Personal Loan Description:
+        Applicant Name: ${memoData.applicantName}
+        Applicant Age: ${memoData.applicantAge}
+        Annual Income: ${memoData.annualIncome}
+        Loan Amount: ${memoData.loanAmount}
+        Loan Purpose: ${memoData.loanPurpose}
+        Loan Type: ${memoData.loanType}
+        Loan Term: ${memoData.loanTerm} months
+        CIBIL Score: ${memoData.cibilScore}
+
+        Extract Additional Details Extracted from Loan Application Form:${text}
+
+        Tasks:
+
+        Profile Overview: Provide a summary of the applicant's background, focusing on age, education, and income.
+        Financial Stability Assessment: Assess the applicant's financial stability by analyzing their education, employment, and annual income. Highlight any potential risks or strengths.
+        Loan Feasibility Evaluation: Analyze the requested loan amount, purpose, and type. Determine if the loan amount is reasonable and justified given the applicant's financial profile.
+        Creditworthiness Assessment: Evaluate the applicant’s CIBIL score, discussing how it affects their creditworthiness and the likelihood of loan approval.
+        Supporting Documents:
+        Review the uploaded loan application form and bank statement.
+        Highlight any discrepancies or important details found in the documents that may affect the loan approval process.
+        Final Recommendation:
+        Based on the analysis of the above sections, provide a final recommendation on whether the loan should be approved, conditionally approved, or rejected.
+        Justify your decision with specific references to the data provided.
+        Take a deep breath and work on this problem step-by-step.
+        Now i want you to return the output in a specific format. you will return me a json file exactly like this""
+        reponse = {
+          "profileScore":"something between 1 to 10 on whether to give the loan or not",
+          "historicalAnalysis":["50000","60000","70000","80000","90000"],/*this is his annual income of last 5 years*/
+          "employmentDetails":{
+            "employerName":"abc.inc",
+            "position":"manager",
+            "employmentDuration":"5 years"
+          },
+          "verifiedIncome":"500000 usd",
+          "riskAnalysis":{
+            "riskLevel":"low or high or medium",
+            "reasons":["factors","affecting","it"]
+          }
+          //other relevant fields that you think we should mention
+        }
+        return reponse
+        `;
+  
+  // Combine the custom prompt with the text
+  const combinedText = `${customPrompt}\n\n${text}`;
+
+  console.log('Sending text to Gemini API:');
+
+  const result = await model.generateContent([combinedText]);
 
   console.log('Gemini API result:', result);
 
@@ -50,7 +111,6 @@ export async function POST(request: Request) {
     const formEntries: { [key: string]: any } = {};
     const savedFiles = [];
     const extractedTexts = [];
-    const geminiResponses: string[] = [];
 
     const AZURE_STORAGE_CONNECTION_STRING = process.env.NEXT_PUBLIC_AZURE_STORAGE_CONNECTION_STRING as string;
     
@@ -67,17 +127,30 @@ export async function POST(request: Request) {
         const file = value;
         const blobName = `${memoId}/${file.name}`;
         const blockBlobClient = containerClient.getBlockBlobClient(blobName);
-
+        
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
         await blockBlobClient.upload(buffer, buffer.length);
 
-        try {
-          const pdfText = await pdfParse(buffer);
-          extractedTexts.push(pdfText.text);
-        } catch (parseError) {
-          console.error('Error parsing PDF:', parseError);
-          throw new Error('Failed to parse PDF');
+        const fileType = file.type;
+
+        if (fileType === 'application/pdf') {
+          try {
+            const pdfData = await pdfParse(buffer);
+            
+            // Check if the PDF was parsed successfully
+            if (pdfData.numpages === 0) {
+              throw new Error('The PDF file appears to be empty or invalid.');
+            }
+            
+            extractedTexts.push(pdfData.text);
+          } catch (parseError) {
+            console.error('Error parsing PDF:', parseError);
+            throw new Error('Failed to parse PDF. Please ensure the file is a valid PDF.');
+          }
+        } else {
+          // Handle non-PDF files, e.g., images (if needed)
+          console.log(`Skipping parsing for non-PDF file: ${file.name}`);
         }
 
         const blobUrl = blockBlobClient.url;
@@ -90,34 +163,27 @@ export async function POST(request: Request) {
 
     formEntries.memoId = memoId;
 
-    const splitter = new RecursiveCharacterTextSplitter({ chunkSize: 1000, chunkOverlap: 100 });
+    // Combine all extracted texts into one
+    const combinedText = extractedTexts.join('\n\n'); // Combine with two newlines for separation
 
-    for (const text of extractedTexts) {
-      try {
-        const chunks = await splitter.splitText(text);
-        console.log('Text chunks:', chunks.length);
+    try {
+      const responseText = await processTextWithGemini(formEntries, combinedText);
+      console.log(`Processed combined text response: ${responseText}`);
+      
+      // Parse the stringified JSON response
+      const jsonResponse = JSON.parse(responseText);
 
-        for (const chunk of chunks) {
-          try {
-            const response = await processTextWithGemini(chunk);
-            console.log(`Processed chunk response: ${response}`);
-            geminiResponses.push(response); // Collect the Gemini responses
-          } catch (geminiError) {
-            console.error('Error processing text with Gemini:', geminiError);
-            throw new Error('Gemini processing failed');
-          }
-        }
-      } catch (splitError) {
-        console.error('Error splitting text:', splitError);
-        throw new Error('Text splitting failed');
-      }
+      // Add the JSON response to formEntries
+      formEntries.geminiResponse = jsonResponse;
+    } catch (geminiError) {
+      console.error('Error processing combined text with Gemini:', geminiError);
+      throw new Error('Gemini processing failed');
     }
-
-    // Add Gemini responses to the form entries
-    formEntries.geminiResponses = geminiResponses;
 
     const jsonBlobName = `${memoId}/data.json`;
     const jsonBlockBlobClient = containerClient.getBlockBlobClient(jsonBlobName);
+    
+    // Convert the formEntries object to a string and upload it
     const jsonData = JSON.stringify(formEntries, null, 2);
     await jsonBlockBlobClient.upload(jsonData, jsonData.length);
 
@@ -125,10 +191,12 @@ export async function POST(request: Request) {
       message: 'Form data, files uploaded, and text processed successfully', 
       memoId, 
       savedFiles,
-      geminiResponses // Include Gemini responses in the return
+      geminiResponse: formEntries.geminiResponse // Include Gemini response in the return
     });
   } catch (error) {
     console.error('Error during form submission:', error);
     return NextResponse.json({ message: 'Error during form submission', error: (error as Error).message }, { status: 500 });
   }
 }
+
+

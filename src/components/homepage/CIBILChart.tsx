@@ -14,17 +14,17 @@ interface CIBILChartProps {
 }
 
 const data: DataItem[] = [
-  { name: 'Poor', value: 280, color: '#ff0000' },   // Range 300-579
-  { name: 'Fair', value: 90, color: '#ff8c00' },    // Range 580-669
-  { name: 'Good', value: 80, color: '#ffff00' },    // Range 670-749
-  { name: 'Very Good', value: 50, color: '#00ff00' },  // Range 750-799
-  { name: 'Excellent', value: 100, color: '#0000ff' },  // Range 800-900
+  { name: 'Poor', value: 280, color: '#FF3347' },   // Range 300-579
+  { name: 'Fair', value: 90, color: '#FBCEB5' },    // Range 580-669
+  { name: 'Good', value: 80, color: '#DEFF8B' },    // Range 670-749
+  { name: 'Very Good', value: 50, color: '#8CBA51' },  // Range 750-799
+  { name: 'Excellent', value: 100, color: '#132A13' },  // Range 800-900
 ];
 
-const cx = 140;
-const cy = 100;
+const cx = 120;
+const cy = 80;
 const iR = 50;
-const oR = 100;
+const oR = 80;
 
 const getNeedle = (value: number, data: DataItem[], cx: number, cy: number, iR: number, oR: number, color: string) => {
   let total = 0;
@@ -73,7 +73,7 @@ const CIBILChart: FC<CIBILChartProps> = ({ cibilScore }) => {
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
             </Pie>
-            {getNeedle(cibilScore, data, cx, cy, iR, oR, '#d0d000')}
+            {getNeedle(cibilScore, data, cx, cy, iR, oR, 'foreground')}
         </PieChart>
       </ResponsiveContainer>
   );

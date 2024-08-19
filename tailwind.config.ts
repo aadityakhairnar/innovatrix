@@ -28,6 +28,10 @@ const config = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          secondary: "hsl(var(--warning-secondary))",
+        },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",

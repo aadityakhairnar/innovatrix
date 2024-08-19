@@ -76,7 +76,7 @@ const Memotable = () => {
   return (
     <div className=" mx-20">
       <Tabs defaultValue="individual" className="w-full" onValueChange={(value) => setActiveTab(value)}>
-        <TabsList className="inline-flex h-10 items-center justify-center rounded-md bg-primary p-1 text-muted-foreground">
+        <TabsList className="inline-flex h-10 items-center justify-center rounded-md bg-primary p-1 text-background">
           <TabsTrigger value="individual" className="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">
             Individual
           </TabsTrigger>
@@ -205,6 +205,7 @@ const Memotable = () => {
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">
+                  <div className="flex flex-grow-0 flex-row items-center text-nowrap">
                   Memo Id
                   <Button
                     variant="ghost"
@@ -217,8 +218,10 @@ const Memotable = () => {
                       <ChevronDown size={16} />
                     )}
                   </Button>
+                  </div>
                 </TableHead>
                 <TableHead>
+                  <div className="flex flex-grow-0 flex-row items-center text-nowrap">
                   Name
                   <Button
                     variant="ghost"
@@ -231,8 +234,10 @@ const Memotable = () => {
                       <ChevronDown size={16} />
                     )}
                   </Button>
+                  </div>
                 </TableHead>
                 <TableHead>
+                  <div className="flex flex-row items-center text-nowrap">
                   Loan Type
                   <Button
                     variant="ghost"
@@ -245,8 +250,10 @@ const Memotable = () => {
                       <ChevronDown size={16} />
                     )}
                   </Button>
+                  </div>
                 </TableHead>
-                <TableHead className="text-right">
+                <TableHead >
+                  <div className="flex flex-row items-center text-nowrap">
                   Amount
                   <Button
                     variant="ghost"
@@ -259,8 +266,10 @@ const Memotable = () => {
                       <ChevronDown size={16} />
                     )}
                   </Button>
+                  </div>
                 </TableHead>
-                <TableHead className="text-right">
+                <TableHead >
+                  <div className="flex flex-row items-center text-nowrap">
                   Date Created
                   <Button
                     variant="ghost"
@@ -273,8 +282,10 @@ const Memotable = () => {
                       <ChevronDown size={16} />
                     )}
                   </Button>
+                  </div>
                 </TableHead>
-                <TableHead className="text-right">
+                <TableHead >
+                  <div className="flex flex-row items-center text-nowrap">
                   Status
                   <Button
                     variant="ghost"
@@ -287,6 +298,7 @@ const Memotable = () => {
                       <ChevronDown size={16} />
                     )}
                   </Button>
+                  </div>
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -296,9 +308,9 @@ const Memotable = () => {
                   <TableCell className="font-medium">{item["MemoId"]}</TableCell>
                   <TableCell>{item.Name}</TableCell>
                   <TableCell>{item["Loan Type"]}</TableCell>
-                  <TableCell className="text-right">{item.Amount}</TableCell>
-                  <TableCell className="text-right">{item["Date Created"]}</TableCell>
-                  <TableCell className="text-right">{item.Status}</TableCell>
+                  <TableCell className="text-left">{item.Amount}</TableCell>
+                  <TableCell className="text-left">{item["Date Created"]}</TableCell>
+                  <TableCell className="text-left">{item.Status}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

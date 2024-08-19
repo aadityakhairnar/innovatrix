@@ -1,0 +1,12 @@
+{
+    "credit_memo": {
+        "profile_overview": "The applicant, aaditya, is a 21-year-old male, married, and employed as a Senior Software Engineer at ABC Technologies Pvt Ltd for the past 5 years. He has a declared annual income of INR 12,00,000 and is seeking a home loan of INR 10,00,000 for a stated purpose of \"timepass\".",
+        "financial_stability_assessment": "The applicant's declared annual income of INR 12,00,000 suggests a reasonable level of financial stability.",
+        "loan_feasibility_evaluation": "The requested loan amount of INR 10,00,000 is significant and the stated purpose of \"timepass\" raises concerns about the applicant's financial planning and the necessity of the loan. Additionally, the loan type is home loan, which typically requires a longer tenure and larger down payment, which are not provided in the details.",
+        "creditworthiness_assessment": "The applicant has a CIBIL score of 749, indicating a good credit history.",
+        "emi_affordability_analysis": "The applicant's declared monthly EMI obligations are INR 15,000. Assuming a monthly income of INR 1,00,000 (INR 12,00,000/12), the proposed EMI constitutes 15% of the applicant's monthly income. This suggests the applicant might be able to manage the loan repayment, however,  it's recommended to verify the actual monthly income and spending patterns to ensure the EMI is sustainable.",
+        "spending_pattern_and_bank_statement_analysis": "The provided information does not include bank statement analysis. Accessing the applicant's bank statement is crucial for evaluating spending patterns, income verification, and ensuring sufficient funds for loan repayment.",
+        "final_profile_score_calculation": "Based on the available information, the applicant's profile score is moderate. While the credit score and declared income indicate a good financial standing, the lack of clarity about the loan purpose, the substantial loan amount, and the absence of bank statement analysis raise concerns. A comprehensive evaluation, including a thorough analysis of the bank statement, is essential to determine the final profile score.",
+        "final_recommendation": "Based on the limited information, the loan application should be conditionally approved pending a detailed review of the applicant's bank statements to verify income, spending patterns, and affordability of the proposed EMI. The applicant should also be asked to provide a clear justification for the loan purpose and elaborate on the intended use of the loan amount."
+    }
+}
