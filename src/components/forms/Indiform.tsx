@@ -32,8 +32,8 @@ const formSchema = z.object({
   loanType: z.string(),
   loanTerm: z.number().min(0, { message: "Loan Term must be at least 1." }),
   cibilScore: z.number().min(0, { message: "Cibil Score must be at least 1." }),
-  bankApplication: z.instanceof(File, { message: "Bank Application is required." }),
-  incomeCertificate: z.instanceof(File, { message: "Income Certificate is required." }),
+  loanApplication: z.instanceof(File, { message: "Loan Application is required." }),
+  bankStatement: z.instanceof(File, { message: "Income Certificate is required." }),
   aadharCard: z.instanceof(File, { message: "Aadhar Card is required." }),
   panCard: z.instanceof(File, { message: "Pan Card is required." }),
 });
@@ -42,7 +42,7 @@ type FormData = z.infer<typeof formSchema>;
 
 export function Indiform() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [memoId, setMemoId] = useState<string | null>(null);
+  const [memo_id, setMemo_id] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [aadhaarValid, setAadhaarValid] = useState<null | boolean>(null);
   const [panValid, setPanValid] = useState<null | boolean>(null);
@@ -59,8 +59,8 @@ export function Indiform() {
       loanType: "",
       loanTerm: 0,
       cibilScore: 0,
-      bankApplication: undefined,
-      incomeCertificate: undefined,
+      loanApplication: undefined,
+      bankStatement: undefined,
       aadharCard: undefined,
       panCard: undefined,
     },
@@ -79,26 +79,29 @@ export function Indiform() {
     formData.append("loanType", values.loanType);
     formData.append("loanTerm", values.loanTerm.toString());
     formData.append("cibilScore", values.cibilScore.toString());
-    formData.append("bankApplication", values.bankApplication as File);
-    formData.append("incomeCertificate", values.incomeCertificate as File);
+    formData.append("loanApplication", values.loanApplication as File);
+    formData.append("bankStatement", values.bankStatement as File);
     formData.append("aadharCard", values.aadharCard as File);
     formData.append("panCard", values.panCard as File);
 
     try {
-      const response = await fetch('/api/individual', {
+      const response = await fetch('http://localhost:5000/process-individual-loan', {
         method: 'POST',
-        body: formData, // formData should be a FormData object
+        body: formData,
+        headers: {
+          'Accept': 'application/json',
+        }, // formData should be a FormData object
       });      
 
-      if (!response.ok) {
-        const message = `An error has occurred: ${response.status}`;
-        throw new Error(message);
-      }
+      // if (!response.ok) {
+      //   const message = `An error has occurred: ${response.status}`;
+      //   throw new Error(message);
+      // }
 
       const data = await response.json();
-      setMemoId(data.memoId); 
-      router.push(`/memo/individual/generatedMemo?memoId=${data.memoId}`) // Set the memoId from the server's response
-      console.log('Form submitted successfully with memoId:', data.memoId);
+      setMemo_id(data.memo_id); 
+      router.push(`/memo/individual/generatedMemo?memoId=${data.memo_id}`) //individual_memo_5903 Set the memoId from the server's response
+      console.log('Form submitted successfully with memoId:',data.memo_id);
     } catch (error: any) {
       console.error('Error submitting form:', error);
       setError(error.message || 'An unexpected error occurred');
@@ -326,10 +329,10 @@ export function Indiform() {
 
         <FormField
           control={form.control}
-          name="bankApplication"
+          name="loanApplication"
           render={({ field, formState: { errors } }) => (
             <FormItem className='col-span-1 row-span-1 p-4'>
-              <FormLabel className='text-lg'>Bank Application (PDF)</FormLabel>
+              <FormLabel className='text-lg'>Loan Application (PDF)</FormLabel>
               <FormControl>
                 <Input
                   className=' hover:border-2 hover:border-warning-secondary hover:cursor-pointer'
@@ -339,7 +342,7 @@ export function Indiform() {
                   onChange={(e) => field.onChange(e.target.files ? e.target.files[0] : null)}
                 />
               </FormControl>
-              {errors.bankApplication && <FormMessage>{errors.bankApplication.message}</FormMessage>}
+              {errors.loanApplication && <FormMessage>{errors.loanApplication.message}</FormMessage>}
             </FormItem>
           )}
         />
@@ -347,7 +350,7 @@ export function Indiform() {
 
         <FormField
           control={form.control}
-          name="incomeCertificate"
+          name="bankStatement"
           render={({ field, formState: { errors } }) => (
             <FormItem className=' col-span-1 row-span-1 p-4'>
               <FormLabel className='text-lg'>Income Certificate (PDF)</FormLabel>
@@ -360,7 +363,7 @@ export function Indiform() {
                     onChange={(e) => field.onChange(e.target.files ? e.target.files[0] : null)}
                   />
               </FormControl>
-              {errors.incomeCertificate && <FormMessage>{errors.incomeCertificate.message}</FormMessage>}
+              {errors.bankStatement && <FormMessage>{errors.bankStatement.message}</FormMessage>}
             </FormItem>
           )}
         />
@@ -369,16 +372,16 @@ export function Indiform() {
           {isSubmitting ? "Submitting..." : "Submit"}
         </Button>
         </div>
-        {memoId && <div className="text-green-500">
-          Form submitted successfully! Memo ID: {memoId}
+        {memo_id && <div className="text-green-500">
+          Form submitted successfully! Memo ID: {memo_id}
           </div>}
         {error && <div className="text-red-500">Error: {error}</div>}
       </form>
-      <Link href={'/memo/individual/generatedMemo'}>
+      {/* <Link href={'/memo/individual/generatedMemo'}>
       <Button>
         Skip
       </Button>
-      </Link>
+      </Link> */}
     </Form>
   );
 }

@@ -1,0 +1,66 @@
+{
+    "company_details": {
+        "company_name": "abdc", 
+        "industry": "Pharmaceuticals", 
+        "description": "abdc is a leading pharmaceutical company with a global presence. It holds the 7th position in the global market and enjoys a 7% market share within the pharmaceutical industry.  The company generates significant revenue and has a solid financial foundation, demonstrating its strong market position and competitive advantage.", 
+        "annual_revenue": "$41,000,000,000", 
+        "loan_amount_requested": "2345", 
+        "loan_purpose": "To start a Business", 
+        "profile_score": "Answer is not available in the context", 
+        "profile_overview": "abdc is a major player in the pharmaceutical industry with substantial revenue and a strong market presence. However, the requested loan amount is extremely low compared to the company's financial size, raising concerns about the loan's purpose and feasibility."}, 
+        "financial_analysis": {
+            "revenue": "$41,000,000,000", 
+            "net_income": "$7,500,000,000", 
+            "total_assets": "Answer is not available in the context", 
+            "total_debt": "$17,000,000,000", 
+            "total_equity": "$40,000,000,000", 
+            "financial_ratios": {
+                "current_ratio": "1.92", 
+                "debt_to_equity": "0.43", 
+                "return_on_assets": "11.54%", 
+                "return_on_equity": "18.75%"
+                }, 
+            "historical_financial_analysis": {
+                "revenue": {
+                    "years": ["2019", "2020", "2021", "2022", "2023"], 
+                    "values": ["Answer is not available in the context", "Answer is not available in the context", "Answer is not available in the context", "Answer is not available in the context", "Answer is not available in the context"], 
+                    "unit": "Millions"}, 
+                    "profit_margin": {"years": ["2019", "2020", "2021", "2022", "2023"], 
+                    "values": ["Answer is not available in the context", "Answer is not available in the context", "Answer is not available in the context", "Answer is not available in the context", "Answer is not available in the context"], 
+                    "unit": "Percentage"}
+                }, 
+            "bank_statement_analysis": "The provided bank statement indicates irregular income, inconsistent cash flow, and potential liquidity issues. The average balance is $6,206,549.64, but there are frequent months with significantly lower balances. The bank statement does not reflect the financial stability indicated in the loan application, raising concerns about the company's actual financial health and cash flow management.", 
+            "credit_score_analysis": "The credit score certificate is required for a comprehensive creditworthiness assessment. Please provide the credit score certificate for further analysis."
+            }, 
+            "risk_analysis": {
+                "risk_level": "High", 
+                "risk_factors": ["Disparity between the loan amount and the company's financial size", "Inconsistencies between bank statement analysis and financial statements", "Missing credit score certificate for risk assessment"], 
+                "external_risk_factors": {
+                    "market_competition": {
+                        "level": "High", 
+                        "description": "The pharmaceutical industry is highly competitive with many established players and emerging startups.  abdc faces intense competition, potentially impacting market share and profitability."
+                        }, 
+                        "regulatory_changes": {
+                            "level": "High", 
+                            "description": "The pharmaceutical industry is subject to strict regulations and frequent changes. New regulations can impact production, pricing, and distribution, adding complexity to the business environment."
+                            }, 
+                            "economic_factors": {
+                                "level": "Moderate", 
+                                "description": "Economic factors, including inflation, interest rates, and global trade dynamics, can impact demand for pharmaceuticals and overall market performance."
+                                }
+                }
+            }, 
+            "collateral_and_security_analysis": {
+                "collateral_value": "Answer is not available in the context", 
+                "adequacy": "Answer is not available in the context"
+                }, 
+            "sector_and_market_position_analysis": {
+                "market_share": "7%", 
+                "growth_rate": "Answer is not available in the context", 
+                "competition_level": "High"
+            }, 
+            "final_profile_score_calculation": {
+                "cumulative_profile_score": "Answer is not available in the context", "final_recommendation": "Rejection", 
+                "recommendation_reason": "The requested loan amount is significantly small compared to the company's size.  The bank statement analysis reveals inconsistencies with the financial data provided, highlighting concerns about financial stability and transparency. The credit score certificate is missing, preventing a comprehensive creditworthiness assessment. Given these issues, recommending rejection of the loan application until further clarification and documentation are provided."
+            }, 
+            "executive_summary": {"button_text": "Download", "url": "link_to_download"}}

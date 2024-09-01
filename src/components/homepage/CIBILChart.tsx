@@ -21,7 +21,7 @@ const data: DataItem[] = [
   { name: 'Excellent', value: 100, color: '#132A13' },  // Range 800-900
 ];
 
-const cx = 120;
+const cx = 150;
 const cy = 80;
 const iR = 50;
 const oR = 80;
@@ -47,8 +47,8 @@ const getNeedle = (value: number, data: DataItem[], cx: number, cy: number, iR: 
 
   return (
     <g>
-      <circle cx={x0} cy={y0} r={r} fill={color} stroke="none" />
-      <path d={`M${xba} ${yba}L${xbb} ${ybb} L${xp} ${yp} L${xba} ${yba}`} stroke="none" fill={color} />
+      <circle cx={x0} cy={y0} r={r} fill="currentColor" stroke="none" />
+      <path d={`M${xba} ${yba}L${xbb} ${ybb} L${xp} ${yp} L${xba} ${yba}`} stroke="none" fill="currentColor" />
     </g>
   );
 };

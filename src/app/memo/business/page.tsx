@@ -40,11 +40,7 @@ export default function Page() {
 
                     <Busiform/>
  
-                <Button>
-                    <Link href="\memo\business\generatedMemo">
-                    skip
-                    </Link>
-                </Button>
+                
             </div>
         </div>
     </>

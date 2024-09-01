@@ -17,7 +17,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-const chartData = [{ month: "january", individual: 1260, business: 570 }]
+const chartData = [{ month: "january", individual: 370, business: 105 }]
 
 const chartConfig = {
   individual: {

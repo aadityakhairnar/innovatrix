@@ -23,79 +23,96 @@ import {
 import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
-  businessName: z.string().min(2, { message: "Applicant Name must be at least 2 characters." }),
-  annualIncome: z.number().min(0, { message: "Loan amount must be at least 1." }),
-  loanAmount: z.number().min(0, { message: "Loan amount must be at least 1." }),
+  companyName: z.string().min(2, { message: "Applicant Name must be at least 2 characters." }),
+  annualIncome: z.preprocess((value) => Number(value), z.number().min(0, { message: "Annual income must be a positive number." })),
+  loanAmount: z.preprocess((value) => Number(value), z.number().min(0, { message: "Loan amount must be a positive number." })),
   loanPurpose: z.string().min(2, { message: "Loan Purpose must be at least 2 characters." }),
   loanType: z.string(),
   loanTerm: z.number().min(1, { message: "Loan Term must be at least 1." }),
-  bankApplication: z.instanceof(File, { message: "Bank Application is required." }).optional(),
-  incomeCertificate: z.instanceof(File, { message: "Income Certificate is required." }).optional(),
-  creditScoreReport: z.instanceof(File, { message: "Income Certificate is required." }).optional(),
-
+  sector: z.string().min(2, { message: "Sector must be at least 2 characters." }),
+  gstin: z.string().min(2, { message: "GSTIN must be at least 2 characters." }),
+  ifsc: z.string().min(2, { message: "IFSC must be at least 2 characters." }),
+  loanApplication: z.instanceof(File, { message: "Loan Application is required." }).optional(),
+  bankStatement: z.instanceof(File, { message: "Bank Statement is required." }).optional(),
+  creditScoreCertificate: z.instanceof(File, { message: "Credit Score Certificate is required." }).optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
 export function Busiform() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [memoId, setMemoId] = useState<string | null>(null);
+  const [memo_id, setMemo_id] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [aadhaarValid, setAadhaarValid] = useState<null | boolean>(null);
-  const [panValid, setPanValid] = useState<null | boolean>(null);
-  const router = useRouter()
+  const router = useRouter();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      businessName: "",
+      companyName: "",
       annualIncome: 0,
       loanAmount: 0,
       loanPurpose: "",
+      sector: "",
+      gstin: "",
+      ifsc: "",
       loanType: "",
       loanTerm: 1,
-      bankApplication: undefined,
-      incomeCertificate: undefined,
-      creditScoreReport: undefined,
+      loanApplication: undefined,
+      bankStatement: undefined,
+      creditScoreCertificate: undefined,
     },
   });
 
   async function onSubmit(values: FormData) {
+    console.log("Form submitted");
     setIsSubmitting(true);
     setError(null); // Reset any previous errors
     const formData = new FormData();
 
-    formData.append("applicantName", values.businessName);
+    formData.append("companyName", values.companyName);
     formData.append("annualIncome", values.annualIncome.toString());
     formData.append("loanAmount", values.loanAmount.toString());
     formData.append("loanPurpose", values.loanPurpose);
+    formData.append("sector", values.sector);
+    formData.append("gstin", values.gstin);
+    formData.append("ifsc", values.ifsc);
     formData.append("loanType", values.loanType);
     formData.append("loanTerm", values.loanTerm.toString());
-    formData.append("bankApplication", values.bankApplication as File);
-    formData.append("incomeCertificate", values.incomeCertificate as File);
-    formData.append("creditScoreReport", values.creditScoreReport as File);
+    if (values.loanApplication) {
+      formData.append("loanApplication", values.loanApplication);
+    }
+    if (values.bankStatement) {
+      formData.append("bankStatement", values.bankStatement);
+    }
+    if (values.creditScoreCertificate) {
+      formData.append("creditScoreCertificate", values.creditScoreCertificate);
+    }
 
     try {
-      const response = await fetch('/api/individual', {
+      const response = await fetch('http://localhost:5000/process-business-loan', {
         method: 'POST',
-        body: formData, // formData should be a FormData object
-      });      
-
+        body: formData,
+        headers: {
+          'Accept': 'application/json',
+        },
+      });
+    
       if (!response.ok) {
         const message = `An error has occurred: ${response.status}`;
         throw new Error(message);
       }
-
+    
       const data = await response.json();
-      setMemoId(data.memoId); 
-      router.push(`/memo/individual/generatedMemo?memoId=${data.memoId}`) // Set the memoId from the server's response
-      console.log('Form submitted successfully with memoId:', data.memoId);
+      console.log('Server response:', data); // Log the response
+      setMemo_id(data.memo_id); 
+      router.push(`/memo/business/generatedMemo?memo_id=${data.memo_id}`);
     } catch (error: any) {
       console.error('Error submitting form:', error);
       setError(error.message || 'An unexpected error occurred');
     } finally {
       setIsSubmitting(false);
     }
+    
   }
 
   
@@ -109,12 +126,12 @@ export function Busiform() {
         </div>
       <FormField
           control={form.control}
-          name="businessName"
+          name="companyName"
           render={({ field }) => (
             <FormItem className=' col-span-1 row-span-1 p-4'>
               <FormLabel>Business Name</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -162,6 +179,42 @@ export function Busiform() {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="sector"
+          render={({ field }) => (
+            <FormItem className=' col-span-1 row-span-1 p-4'>
+              <FormLabel>sector</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="gstin"
+          render={({ field }) => (
+            <FormItem className=' col-span-1 row-span-1 p-4'>
+              <FormLabel>gstin</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="ifsc"
+          render={({ field }) => (
+            <FormItem className=' col-span-1 row-span-1 p-4'>
+              <FormLabel>ifsc</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
 
           <FormField
           control={form.control}
@@ -169,20 +222,8 @@ export function Busiform() {
           render={({ field }) => (
             <FormItem className=' col-span-1 row-span-1 p-4'>
               <FormLabel>LoanType</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a verified email to display" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="Personal Loan">Personal Loan</SelectItem>
-                  <SelectItem value="Home Loan">Home Loan</SelectItem>
-                  <SelectItem value="Car Loan">Car Loan</SelectItem>
-                  <SelectItem value="Education Loan">Education Loan</SelectItem>
-                  <SelectItem value="Mortgage Loan">Mortgage Loan</SelectItem>
-                </SelectContent>
-              </Select>
+              <Input {...field} />
+
               <FormMessage />
             </FormItem>
           )}
@@ -209,10 +250,10 @@ export function Busiform() {
         
         
 
-        {["bankApplication", "incomeCertificate", "creditScoreReport"].map((name) => (
+        {["loanApplication", "bankStatement", "creditScoreCertificate"].map((name) => (
           <Controller
             key={name}
-            name={name as "bankApplication" | "incomeCertificate"}
+            name={name as "loanApplication" | "bankStatement" | "creditScoreCertificate"}
             control={form.control}
             render={({ field, fieldState: { error } }) => (
               <FormItem className=' col-span-1 row-span-1 p-4'>
@@ -234,8 +275,8 @@ export function Busiform() {
           {isSubmitting ? "Submitting..." : "Submit"}
         </Button>
         </div>
-        {memoId && <div className="text-green-500">
-          Form submitted successfully! Memo ID: {memoId}
+        {memo_id && <div className="text-green-500">
+          Form submitted successfully! Memo ID: {memo_id}
           </div>}
         {error && <div className="text-red-500">Error: {error}</div>}
       </form>

@@ -1,57 +1,72 @@
 {
-  "applicantName": "Vedant Rao",
-  "applicantAge": "31",
-  "annualIncome": "674998",
-  "loanAmount": "145000",
-  "loanPurpose": "To buy a house",
-  "loanType": "Home Loan",
-  "loanTerm": "10",
-  "cibilScore": "786",
-  "bankApplication": "https://loanapplications.blob.core.windows.net/inputpdfs/OFA550/d.docs.live.net.pdf",
-  "incomeCertificate": "https://loanapplications.blob.core.windows.net/inputpdfs/OFA550/WhatsApp%20Image%202024-08-05%20at%201.14.33%20PM%20(1).jpeg",
-  "aadharCard": "https://loanapplications.blob.core.windows.net/inputpdfs/OFA550/WhatsApp%20Image%202024-08-05%20at%202.48.35%20PM.jpeg",
-  "panCard": "https://loanapplications.blob.core.windows.net/inputpdfs/OFA550/WhatsApp%20Image%202024-08-16%20at%2012.44.55%20AM.jpeg",
-  "memoId": "OFA550",
-  "geminiResponse": {
-    "profileScore": "8",
-    "historicalAnalysis": [
-      "1200000",
-      "1200000",
-      "1200000",
-      "1200000",
-      "1200000"
-    ],
-    "employmentDetails": {
-      "employerName": "ABC Technologies Pvt Ltd",
-      "position": "Senior Software Engineer",
-      "employmentDuration": "5 years"
-    },
-    "verifiedIncome": "1200000 INR",
-    "riskAnalysis": {
-      "riskLevel": "Low",
-      "reasons": [
-        "Stable employment history",
-        "Consistent income",
-        "Adequate debt-to-income ratio"
-      ]
-    },
-    "existingLoanDetails": [
+  "applicant_details": {
+    "name": "Dummy Name",
+    "age": 30,
+    "gender": "Male",
+    "marital_status": "Married",
+    "occupation": "Senior Software Engineer",
+    "company": "XYZ Technologies Pvt Ltd",
+    "employment_duration_years": 5,
+    "annual_income": 1000000,
+    "loan_amount_requested": 800000,
+    "loan_purpose": "Home Renovation",
+    "loan_term_years": 7,
+    "profile_score": 8,
+    "profile_summary": "The applicant has a strong professional background with stable employment and a decent credit score, indicating reliability."
+  },
+  "financial_analysis": {
+    "monthly_income": 83333,
+    "monthly_expenses": 70000,
+    "monthly_emi_obligations": 15000,
+    "cibil_score": 760,
+    "creditworthiness": "Good",
+    "debt_to_income_ratio": "18%",
+    "existing_loans": [
       {
-        "loanType": "Personal Loan",
-        "loanAmount": "200000 INR"
+        "loan_type": "Personal Loan",
+        "loan_amount": 200000
       },
       {
-        "loanType": "Car Loan",
-        "loanAmount": "150000 INR"
+        "loan_type": "Car Loan",
+        "loan_amount": 150000
       }
     ],
-    "monthlyEMI": "15000 INR",
-    "creditScore": "786",
-    "loanAmountRequested": "1000000 INR",
-    "loanPurpose": "Home Renovation",
-    "loanTenure": "5 years",
-    "loanType": "Home Loan",
-    "recommendation": "Approve",
-    "recommendationReason": "The applicant has a strong financial profile with stable employment, consistent income, and a good credit score. The loan amount is reasonable, and the purpose is justifiable.  Given the low risk assessment, the loan can be approved."
+    "income_sources_verified": true,
+    "spending_pattern_analysis": "The applicant has a consistent spending pattern with a moderate level of discretionary spending.",
+    "bank_statement_analysis": "Bank statements show regular income deposits and stable spending behavior, supporting the income claim.",
+    "six_month_analysis": {
+      "months": ["March", "April", "May", "June", "July", "August"],
+      "income": [85000, 87000, 86000, 88000, 89000, 90000],
+      "expenses": [65000, 67000, 66000, 68000, 69000, 70000]
+    }
+  },
+  "risk_analysis": {
+    "risk_level": "Medium",
+    "risk_factors": [
+      "Moderate risk due to potential economic downturns",
+      "Stable employment in a low-risk industry",
+      "Low geopolitical risk in current region",
+      "Moderate health risk considering applicant's age"
+    ],
+    "external_risk_factors": {
+      "economic_conditions": "Moderate risk due to potential economic downturns affecting job stability.",
+      "industry_risk": "Low risk as the technology sector is generally stable.",
+      "personal_liabilities": "No significant liabilities but potential risk from unforeseen medical expenses.",
+      "interest_rate_fluctuations": "High risk if interest rates increase.",
+      "inflation_risk": "Medium risk due to potential inflation reducing purchasing power.",
+      "geopolitical_risk": "Low risk in the current region.",
+      "health_risk": "Moderate risk considering the applicant's age and lifestyle.",
+      "family_dependents": "Medium risk due to dependents which could increase financial obligations.",
+      "housing_market_risk": "Low risk as the housing market is currently stable.",
+      "employment_volatility": "Low risk due to stable employment, but could increase with industry changes."
+    }
+  },
+  "loan_evaluation": {
+    "loan_type": "Home Loan",
+    "requested_amount": 800000,
+    "purpose_of_loan": "Home Renovation",
+    "feasibility_of_loan": "The loan amount is reasonable given the applicant's income and existing obligations.",
+    "final_recommendation": "Conditional Approval",
+    "recommendation_reason": "The applicant has a strong financial profile with stable employment, a good credit score, and a reasonable debt-to-income ratio. However, further verification of bank statements and a clearer justification for the loan purpose are required."
   }
 }
